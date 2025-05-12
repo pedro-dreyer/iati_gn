@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPERIMENT SETUP</title>
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="upper_header" class="image-container"></div>
+
+    <div class="topnav">
+        <a href="/logout">Logout ({{ g.user.username }})</a>
+        <a class="active" href="/">Setup de experimento</a>
+        <a href="experiment-data">Acompanhamento de experimento</a>
+        <a href="configuration">Configuração</a>
+    </div>
+
+    <form action="/save-experiment" method="POST">
+        <div class="container">
+            <div class="first-group">
+            <p>Combustível primário:</p>
+            <input type="radio" id="ocb1" name="fuel" value="ocb1">
+            <label for="ocb1">OCB1</label>
+            <input type="radio" id="oca1" name="fuel" value="oca1">
+            <label for="oca1">OCA1</label>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="first-group">
+                <p>Assistência a combustão:</p>
+                <input type="radio" id="without" name="assistance" value="without">
+                <label for="without">Sem</label>
+                <input type="radio" id="with" name="assistance" value="with">
+                <label for="with">Com</label>
+            </div>
+        
+            <div class="second-group">
+                <label for="test_time">Tempo de teste (min):</label>
+                <input type="text" id="test_time" name="test_time">
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="first-group">
+                <p>Fonte de hidrogênio:</p>
+                <input type="radio" id="hydrogen_eletrolisado" name="hydrogen_source" value="eletrolisado">
+                <label for="hydrogen_eletrolisado">Eletrolisado</label>
+                <input type="radio" id="hydrogen_armazenado" name="hydrogen_source" value="armazenado">
+                <label for="hydrogen_armazenado">Armazenado</label>
+            </div>
+        
+            <div class="second-group">
+                <label for="h2">% H2:</label>
+                <input type="text" id="h2" name="h2">
+            </div>
+        </div>
+
+        <br><br>
+
+        <input type="submit" value="ACEITAR">
+    </form>
+
+    <script src="../static/js/script.js"></script>
+
+</body>
+</html>

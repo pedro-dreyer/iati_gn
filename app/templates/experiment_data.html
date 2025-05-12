@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPERIMENT EVALUATION</title>
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="upper_header" class="image-container"></div>
+
+    <div class="topnav">
+        <a href="/logout">Logout ({{ g.user.username }})</a>
+        <a href="/">Setup de experimento</a>
+        <a class="active" href="experiment-data">Acompanhamento de experimento</a>
+        <a href="configuration">Configuração</a>
+    </div>
+
+    <div>
+        <h1>Atividades Selecionadas</h1>
+    </div>
+
+    <div class="container">
+        <div class="first-group">
+            <p>Combustível primário:</p>
+            <input type="radio" id="ocb1" name="fuel" value="ocb1" disabled>
+            <label for="ocb1">OCB1</label>
+            <input type="radio" id="oca1" name="fuel" value="oca1" disabled>
+            <label for="oca1">OCA1</label>
+        </div>
+    
+        <div class="second-group">
+            <p>Confirmação:</p>
+            <input type="radio" id="conf_ocb1" name="conf_fuel" value="ocb1" disabled>
+            <label for="ocb1">OCB1</label>
+            <input type="radio" id="conf_oca1" name="conf_fuel" value="oca1" disabled>
+            <label for="oca1">OCA1</label>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="first-group">
+            <p>Assistência a combustão:</p>
+            <input type="radio" id="without" name="assistance" value="without" disabled>
+            <label for="without">Sem</label>
+            <input type="radio" id="with" name="assistance" value="with" disabled>
+            <label for="with">Com</label>
+        </div>
+    
+        <div class="second-group">
+            <label for="test_time">Tempo de teste:</label>
+            <input type="text" id="test_time" disabled>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="first-group">
+            <p>Fonte de hidrogênio:</p>
+            <input type="radio" id="hydrogen_eletrolisado" name="hydrogen_source" value="eletrolisado" disabled>
+            <label for="hydrogen_eletrolisado">Eletrolisado</label>
+            <input type="radio" id="hydrogen_armazenado" name="hydrogen_source" value="armazenado" disabled>
+            <label for="hydrogen_armazenado">Armazenado</label>
+        </div>
+    
+        <div class="second-group">
+            <label for="h2">% H2:</label>
+            <input type="text" id="h2" disabled>
+        </div>
+    </div>
+
+    <br><br>
+
+    <div>
+        <h1>Botões</h1>
+    </div>
+
+    <div class="info-line">
+        <div class="line-element">
+            <div class="button" id="general_button"></div>
+            <div class="text">
+                <p>Geral</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="button" id="start_motor"></div>
+            <div class="text">
+                <p>Partida Motor</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="button" id="start_test_button"></div>
+            <div class="text">
+                <p>Iniciar teste</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="button" id="stop_motor_button"></div>
+            <div class="text">
+                <p>Parar motor</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h1>Status</h1>
+    </div>
+
+    <div class="info-line">
+        <div class="line-element">
+            <div class="info" id="aquecimento_ocb1"></div>
+            <div class="text">
+                <p>Aquecimento ocb1</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="densidade_ocb1"></div>
+            <div class="text">
+                <p>Densidade ocb1</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="injecao_ocb1"></div>
+            <div class="text">
+                <p>Injeção Ocb1</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="retorno_ocb1"></div>
+            <div class="text">
+                <p>Retorno ocb1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-line">
+        <div class="line-element">
+            <div class="info" id="aquecimento_oca1"></div>
+            <div class="text">
+                <p>Aquecimento oca1</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="densidade_oca1"></div>
+            <div class="text">
+                <p>Densidade oca1</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="injecao_oca1"></div>
+            <div class="text">
+                <p>Injeção Oca1</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="retorno_oca1"></div>
+            <div class="text">
+                <p>Retorno oca1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-line">
+        <div class="line-element">
+            <div class="info" id="injecao_diesel"></div>
+            <div class="text">
+                <p>Injeção Diesel</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="retorno_diesel">
+            </div>
+            <div class="text">
+                <p>Retorno Diesel</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="h2_armazenado"></div>
+            <div class="text">
+                <p>H2 Armazedado</p>
+            </div>
+        </div>
+        <div class="line-element">
+            <div class="info" id="h2_eletrolisado"></div>
+            <div class="text">
+                <p>H2 eletrolisado</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="info-line">
+
+        <div class="line-element">
+            <div class="info" id="motor_ativo"></div>
+            <div class="text">
+                <p>Motor Ativo</p>
+            </div>
+        </div>
+
+        <div class="line-element">
+            <div class="info" id="engine_temp"></div>
+            <div class="text">
+                <p>Aquecimento do motor</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="experiment-time">
+       <h2>Tempo de Teste:</h2>
+       <h2 id="tempo_teste">0</h2>
+    </div>
+
+    <script src="../static/js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input/Output Test</title>
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="upper_header" class="image-container"></div>
+
+    <div class="topnav">
+        <a href="/logout">Logout ({{ g.user.username }})</a>
+        <a class="active" href="input-output-test">Teste de Entrada/Saída</a>
+        
+    </div>
+
+    <div class="io-container">
+        <h1>Teste de Entrada/Saída</h1>
+        
+        <div class="io-section">
+            <h2>Entradas (Sensores)</h2>
+            
+            <div class="adc-container">
+                <h3>MCP 1</h3>
+                <div class="adc-values">
+                    <div class="adc-channel">
+                        <span class="channel-label">CH0 - MOTOR ATIVO:</span>
+                        <span class="channel-value" id="mcp1-ch0">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH1 - SENSOR H2 - ambientes:</span>
+                        <span class="channel-value" id="mcp1-ch1">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH2 - ABERTO/FECHADO GN:</span>
+                        <span class="channel-value" id="mcp1-ch2">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH3 - ABERTO/FECHADO H2:</span>
+                        <span class="channel-value" id="mcp1-ch3">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH4 - PRÉ INJEÇÃO GN:</span>
+                        <span class="channel-value" id="mcp1-ch4">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH5 - PRESSÃO DO ELETROLISADOR:</span>
+                        <span class="channel-value" id="mcp1-ch5">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH6 - VÁLVULA ARMAZENADO:</span>
+                        <span class="channel-value" id="mcp1-ch6">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH7 - VÁLVULA ELETROLISADO:</span>
+                        <span class="channel-value" id="mcp1-ch7">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="adc-container">
+                <h3>MCP 2</h3>
+                <div class="adc-values">
+                    <div class="adc-channel">
+                        <span class="channel-label">CH0 - BOMBA ELETROLISADO:</span>
+                        <span class="channel-value" id="mcp2-ch0">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH1:</span>
+                        <span class="channel-value" id="mcp2-ch1">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH2:</span>
+                        <span class="channel-value" id="mcp2-ch2">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH3:</span>
+                        <span class="channel-value" id="mcp2-ch3">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH4:</span>
+                        <span class="channel-value" id="mcp2-ch4">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH5:</span>
+                        <span class="channel-value" id="mcp2-ch5">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH6:</span>
+                        <span class="channel-value" id="mcp2-ch6">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                    <div class="adc-channel">
+                        <span class="channel-label">CH7:</span>
+                        <span class="channel-value" id="mcp2-ch7">0</span>
+                        <span class="channel-unit">V</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="io-section">
+            <h2>Saídas (Atuadores)</h2>
+            
+            <div class="gpio-container">
+                <div class="gpio-controls">
+                    <div class="gpio-control">
+                        <span class="gpio-label">GPIO 2 - ABRIR/FECHAR GN:</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="gpio2" class="gpio-toggle">
+                            <label for="gpio2"></label>
+                        </div>
+                    </div>
+                    <div class="gpio-control">
+                        <span class="gpio-label">GPIO 3 - ABRIR/FECHAR H2:</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="gpio3" class="gpio-toggle">
+                            <label for="gpio3"></label>
+                        </div>
+                    </div>
+                    <div class="gpio-control">
+                        <span class="gpio-label">GPIO 4 - LIGAR/DESLIGAR MOTOR/SENSORES H2:</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="gpio4" class="gpio-toggle">
+                            <label for="gpio4"></label>
+                        </div>
+                    </div>
+                    <div class="gpio-control">
+                        <span class="gpio-label">GPIO 17 - LIGAR/DESLIGAR ELETROLISADOR:</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="gpio17" class="gpio-toggle">
+                            <label for="gpio17"></label>
+                        </div>
+                    </div>
+                    <div class="gpio-control">
+                        <span class="gpio-label">GPIO 27 - H2 ARMAZENADO:</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="gpio27" class="gpio-toggle">
+                            <label for="gpio27"></label>
+                        </div>
+                    </div>
+                    <div class="gpio-control">
+                        <span class="gpio-label">GPIO 22 - H2 ELETROLISADO:</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="gpio22" class="gpio-toggle">
+                            <label for="gpio22"></label>
+                        </div>
+                    </div>
+                    <div class="gpio-control">
+                        <span class="gpio-label">GPIO 0 - BOMBA INJETORA H2 ELETROLISADO:</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="gpio0" class="gpio-toggle">
+                            <label for="gpio0"></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pwm-container">
+                    <h3>Controles PWM</h3>
+                    
+                    <div class="pwm-control">
+                        <span class="pwm-label">GPIO 12 (PWM) - DESLIZANTE PRÉ BOMBA:</span>
+                        <input type="range" id="pwm-gpio12" class="pwm-slider" min="0" max="100" value="0">
+                        <span class="pwm-value" id="pwm-gpio12-value">0%</span>
+                    </div>
+                    
+                    <div class="pwm-control">
+                        <span class="pwm-label">GPIO 13 (PWM) - LIGAR/DESLIGAR INJETOR:</span>
+                        <input type="range" id="pwm-gpio13" class="pwm-slider" min="0" max="100" value="0">
+                        <span class="pwm-value" id="pwm-gpio13-value">0%</span>
+                    </div>
+                </div>
+                
+                <div class="data-logging">
+                    <h3>Registro de Dados</h3>
+                    <button id="log-data-button" class="log-button">Registrar Valores do Sensor</button>
+                    <div id="log-status" class="log-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/io-test.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="upper_header" class="image-container"></div>
+
+    <div class="topnav">
+        <a class="active" href="login">Login</a>
+        <a href="/">Teste de Entrada/Saída</a>
+    </div>
+
+    <div class="login-container">
+        <h1>Login</h1>
+        
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+        
+        <form method="POST" action="/login">
+            <div class="form-group">
+                <label for="username">Nome de usuário:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">Entrar</button>
+        </form>
+        
+        <p class="signup-link">Não tem uma conta? <a href="/signup">Cadastre-se</a></p>
+    </div>
+
+    <script>
+        // Apply the header images
+        const upper_header_string = `<img src="static/images/breitener.png" class="img-fluid" alt="Image 1">
+        <img src="static/images/iati.png" class="img-fluid" alt="Image 2">
+        <img src="static/images/suape_energia.png" class="img-fluid" alt="Image 3">`;
+
+        const upper_header = document.getElementById('upper_header');
+        upper_header.innerHTML = upper_header_string;
+    </script>
+</body>
+</html>
