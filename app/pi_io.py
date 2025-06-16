@@ -299,6 +299,9 @@ def set_pwm(pin, duty_cycle):
 def simulate_sensor_values():
     """Simulate changing sensor values for testing."""
     import random
+
+    TEST_VALUE = 2.5
+    TEST_VALUE = TEST_VALUE * 1023 / 3.3
     
     with io_lock:
         # Generate realistic looking values
@@ -310,6 +313,15 @@ def simulate_sensor_values():
             # Keep values within 0-1023 range (10-bit ADC)
             adc_values['mcp1'][i] = max(0, min(1023, base_value + variation))
             adc_values['mcp2'][i] = max(0, min(1023, base_value + variation + 50))
+        
+        adc_values['mcp1'][0] = TEST_VALUE
+        adc_values['mcp1'][1] = TEST_VALUE
+        adc_values['mcp1'][2] = TEST_VALUE
+        adc_values['mcp1'][3] = TEST_VALUE
+        adc_values['mcp1'][4] = TEST_VALUE
+        adc_values['mcp1'][5] = TEST_VALUE
+        adc_values['mcp1'][6] = TEST_VALUE
+        adc_values['mcp1'][7] = TEST_VALUE
 
 # Start a background thread to simulate sensor values when in simulation mode
 def start_simulation():

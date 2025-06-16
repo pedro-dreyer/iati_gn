@@ -465,3 +465,60 @@ color: white;
     text-align: center;
     border-left: 4px solid #f44336;
 }
+
+.channel-unit {
+    flex: 0.5;
+    text-align: left;
+    margin-left: 5px;
+    color: #555;
+}
+
+.channel-status {
+    flex: 1.5; /* Combined width of old value and unit spans */
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.status-active {
+    color: #4CAF50; /* Green */
+}
+
+.status-inactive {
+    color: #8f8f8f; /* Gray */
+}
+
+.gpio-label {
+    flex: 3;
+    color: #555;
+    font-weight: bold;
+}
+
+.gpio-push-button {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    user-select: none; /* Prevent text selection */
+    text-align: center;
+    min-width: 100px;
+}
+
+.gpio-push-button:hover {
+    background-color: #e0e0e0;
+}
+
+.gpio-push-button:active, .gpio-push-button.active {
+    background-color: #4CAF50; /* Active green color */
+    color: white;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    border-color: #45a049;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;

@@ -8,6 +8,86 @@ const upper_header_string = `<img src="static/images/breitener.png" class="img-f
 const upper_header = document.getElementById('upper_header');
 upper_header.innerHTML = upper_header_string;
 
+// Configuration for special ADC channel handling
+const adcChannelConfig = {
+    'mcp1-ch0': {
+        type: 'percentage',
+        targetElementId: 'mcp1-ch0'
+    },
+    'mcp1-ch1': {
+        type: 'status',
+        threshold: 2.5, // Voltage threshold for switching state
+        targetElementId: 'mcp1-ch1-status',
+        states: {
+            active: { text: 'Ativado', className: 'status-active' },
+            inactive: { text: 'Desativado', className: 'status-inactive' }
+        }
+    },
+    'mcp1-ch2': {
+        type: 'status',
+        threshold: 2.5, // Voltage threshold
+        targetElementId: 'mcp1-ch2-status',
+        states: {
+            active: { text: 'Aberto', className: 'status-active' },
+            inactive: { text: 'Fechado', className: 'status-inactive' }
+        }
+    },
+    'mcp1-ch3': {
+        type: 'status',
+        threshold: 2.5,
+        targetElementId: 'mcp1-ch3-status',
+        states: {
+            active: { text: 'Aberto', className: 'status-active' },
+            inactive: { text: 'Fechado', className: 'status-inactive' }
+        }
+    },
+    'mcp1-ch4': {
+        type: 'status',
+        threshold: 2.5,
+        targetElementId: 'mcp1-ch4-status',
+        states: {
+            active: { text: 'Aberta', className: 'status-active' },
+            inactive: { text: 'Fechada', className: 'status-inactive' }
+        }
+    },
+    'mcp1-ch5': {
+        type: 'status',
+        threshold: 2.5,
+        targetElementId: 'mcp1-ch5-status',
+        states: {
+            active: { text: 'Aberta', className: 'status-active' },
+            inactive: { text: 'Fechada', className: 'status-inactive' }
+        }
+    },
+    'mcp1-ch6': {
+        type: 'status',
+        threshold: 2.5,
+        targetElementId: 'mcp1-ch6-status',
+        states: {
+            active: { text: 'Ligado', className: 'status-active' },
+            inactive: { text: 'Desligado', className: 'status-inactive' }
+        }
+    },
+    'mcp1-ch7': {
+        type: 'status',
+        threshold: 2.5,
+        targetElementId: 'mcp1-ch7-status',
+        states: {
+            active: { text: 'Ligada', className: 'status-active' },
+            inactive: { text: 'Desligada', className: 'status-inactive' }
+        }
+    },
+        'mcp2-ch0': {
+        type: 'status',
+        threshold: 2.5,
+        targetElementId: 'mcp2-ch0-status',
+        states: {
+            active: { text: 'Aberto', className: 'status-active' },
+            inactive: { text: 'Fechado', className: 'status-inactive' }
+        }
+    }
+};
+
 // Update ADC values
 function updateADCValues() {
     fetch('/api/adc-values')
@@ -15,21 +95,66 @@ function updateADCValues() {
         .then(data => {
             // Update MCP1 values
             for (let i = 0; i < 8; i++) {
-                const element = document.getElementById(`mcp1-ch${i}`);
-                if (element) {
-                    // Convert raw ADC value to voltage (0-1023 to 0-3.3V)
-                    const voltage = (data.mcp1[i] / 1023 * 3.3).toFixed(2);
-                    element.textContent = voltage;
+                const channelId = `mcp1-ch${i}`;
+                const config = adcChannelConfig[channelId];
+                const rawValue = data.mcp1[i];
+                const voltage = (rawValue / 1023) * 3.3;
+
+                if (config) {
+                    // Handle special channels based on the configuration object
+                    const element = document.getElementById(config.targetElementId);
+                    if (!element) continue;
+
+                    if (config.type === 'percentage') {
+                        const percentage = (rawValue / 1023 * 100).toFixed(1);
+                        element.textContent = percentage;
+                    } else if (config.type === 'status') {
+                        const baseClass = 'channel-status';
+                        if (voltage >= config.threshold) {
+                            element.textContent = config.states.active.text;
+                            element.className = `${baseClass} ${config.states.active.className}`;
+                        } else {
+                            element.textContent = config.states.inactive.text;
+                            element.className = `${baseClass} ${config.states.inactive.className}`;
+                        }
+                    }
+                } else {
+                    // Default behavior: display voltage
+                    const element = document.getElementById(channelId);
+                    if (element) {
+                        element.textContent = voltage.toFixed(2);
+                    }
                 }
             }
             
-            // Update MCP2 values
+           // Update MCP2 values
             for (let i = 0; i < 8; i++) {
-                const element = document.getElementById(`mcp2-ch${i}`);
-                if (element) {
-                    // Convert raw ADC value to voltage (0-1023 to 0-3.3V)
-                    const voltage = (data.mcp2[i] / 1023 * 3.3).toFixed(2);
-                    element.textContent = voltage;
+                const channelId = `mcp2-ch${i}`;
+                const config = adcChannelConfig[channelId];
+                const rawValue = data.mcp2[i];
+                const voltage = (rawValue / 1023) * 3.3;
+
+                if (config) {
+                    // Handle special channels based on the configuration object
+                    const element = document.getElementById(config.targetElementId);
+                    if (!element) continue;
+
+                    if (config.type === 'status') {
+                        const baseClass = 'channel-status';
+                        if (voltage >= config.threshold) {
+                            element.textContent = config.states.active.text;
+                            element.className = `${baseClass} ${config.states.active.className}`;
+                        } else {
+                            element.textContent = config.states.inactive.text;
+                            element.className = `${baseClass} ${config.states.inactive.className}`;
+                        }
+                    }
+                } else {
+                    // Default behavior: display voltage
+                    const element = document.getElementById(channelId);
+                    if (element) {
+                        element.textContent = voltage.toFixed(2);
+                    }
                 }
             }
         })
@@ -67,6 +192,57 @@ function updateGPIOStates() {
             console.error('Error fetching GPIO states:', error);
         });
 }
+
+function setGpioState(gpio, state) {
+    fetch('/api/set-gpio', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ gpio, state }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            alert(`Failed to set GPIO ${gpio}: ${data.error}`);
+        }
+    })
+    .catch(error => {
+        console.error(`Error setting GPIO ${gpio}:`, error);
+        alert(`Error setting GPIO ${gpio}: Network or server error`);
+    });
+}
+
+// Set up GPIO push button event listeners
+document.querySelectorAll('.gpio-push-button').forEach(button => {
+    const gpio = button.dataset.gpio;
+
+    const handlePress = () => {
+        setGpioState(gpio, true);
+        button.classList.add('active');
+    };
+
+    const handleRelease = () => {
+        setGpioState(gpio, false);
+        button.classList.remove('active');
+    };
+
+    // Mouse events
+    button.addEventListener('mousedown', handlePress);
+    button.addEventListener('mouseup', handleRelease);
+    button.addEventListener('mouseleave', () => {
+        if (button.classList.contains('active')) {
+            handleRelease();
+        }
+    });
+
+    // Touch events for mobile support
+    button.addEventListener('touchstart', e => {
+        e.preventDefault();
+        handlePress();
+    });
+    button.addEventListener('touchend', handleRelease);
+});
 
 // Set up GPIO toggle event listeners
 document.querySelectorAll('.gpio-toggle').forEach(toggle => {
