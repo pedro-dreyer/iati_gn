@@ -2,8 +2,28 @@
 from flask import Blueprint, render_template, g, request, redirect, url_for
 from .auth import login_required
 from . import db
+import os
 
 main = Blueprint('main', __name__)
+
+@main.context_processor
+def inject_header_config():
+    """Injects a list of header logos into all templates based on an environment variable."""
+    client = os.environ.get('APP_CLIENT', 'breitener').lower()
+    
+    logos = [
+        'images/breitener.png',
+        'images/iati.png',
+        'images/suape_energia.png'
+    ] # Default for 'breitener'
+    
+    if client == 'kps':
+        logos = [
+            'images/kps.png',
+            'images/iati.png'
+        ]
+    
+    return dict(header_logos=logos)
 
 @main.route('/')
 @login_required

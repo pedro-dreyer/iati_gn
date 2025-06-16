@@ -1,13 +1,5 @@
 // app/static/js/io-test.js
 
-// Apply the header images
-const upper_header_string = `<img src="static/images/breitener.png" class="img-fluid" alt="Image 1">
-<img src="static/images/iati.png" class="img-fluid" alt="Image 2">
-<img src="static/images/suape_energia.png" class="img-fluid" alt="Image 3">`;
-
-const upper_header = document.getElementById('upper_header');
-upper_header.innerHTML = upper_header_string;
-
 // Configuration for special ADC channel handling
 const adcChannelConfig = {
     'mcp1-ch0': {

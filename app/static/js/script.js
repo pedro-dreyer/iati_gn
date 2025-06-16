@@ -1,9 +1,4 @@
-const upper_header_string = `<img src="static/images/breitener.png" class="img-fluid" alt="Image 1">
-<img src="static/images/iati.png" class="img-fluid" alt="Image 2">
-<img src="static/images/suape_energia.png" class="img-fluid" alt="Image 3">`
 
-const upper_header = document.getElementById('upper_header');
-upper_header.innerHTML = upper_header_string;
 
 // const radioLabels = document.querySelectorAll('.btn-group-toggle label');
 

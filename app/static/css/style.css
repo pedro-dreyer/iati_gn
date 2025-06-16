@@ -23,13 +23,15 @@ input[type="text"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 120px; /* <--- ADD THIS: Set a fixed height for the container */
+    padding: 10px 0; /* Optional: adds some nice vertical spacing */
 }
 
 .image-container img {
-    max-width: 100%;
-    height: auto;
+    /* REPLACE the old 'max-width' and 'height' rules with these two: */
+    max-height: 100%; /* The image can't be taller than its container */
+    width: auto;      /* The width will adjust to maintain the aspect ratio */
 }
-
 
 .topnav {
     background-color: #333;

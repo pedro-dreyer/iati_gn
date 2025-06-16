@@ -8,7 +8,12 @@
 </head>
 
 <body>
-    <div id="upper_header" class="image-container"></div>
+
+    <div id="upper_header" class="image-container">
+        {% for logo_path in header_logos %}
+            <img src="{{ url_for('static', filename=logo_path) }}" class="img-fluid" alt="Client Logo">
+        {% endfor %}
+    </div>
 
     <div class="topnav">
         <a href="/logout">Logout ({{ g.user.username }})</a>
