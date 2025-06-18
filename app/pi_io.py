@@ -128,30 +128,30 @@ io_lock = threading.Lock()
 
 def init_hardware():
     """Initialize GPIO and SPI if hardware is available."""
-    # Initialize simulation data
     with io_lock:
         for pin in GPIO_PINS:
-            gpio_states[pin] = False
-            
-        # Simulated PWM values (0-100%)
+            gpio_states[pin] = False  # Logical "OFF"
+
         for pin in PWM_PINS:
+            # For PWM, 0% is the initial logical "OFF" state
             gpio_states[f"pwm_{pin}"] = 0
-    
+
     if not HARDWARE_AVAILABLE:
         print("Hardware initialization skipped (simulation mode)")
         return
 
-    # Initialize GPIO
     GPIO.setmode(GPIO.BCM)
     for pin in GPIO_PINS:
         if pin in PWM_PINS:
             GPIO.setup(pin, GPIO.OUT)
-            pwm_instances[pin] = GPIO.PWM(pin, 100)  # Initialize PWM with frequency of 100 Hz
-            pwm_instances[pin].start(0)  # Start with 0% duty cycle
+            pwm_instances[pin] = GPIO.PWM(pin, 100)
+            pwm_instances[pin].start(0) # Physical 0% duty cycle
         else:
             GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, GPIO.LOW)
-            gpio_states[pin] = False
+            # For inverted logic, HIGH on pin is "OFF"
+            GPIO.output(pin, GPIO.HIGH) 
+            # gpio_states[pin] is already False, which matches physical HIGH (OFF)
+
 
     # Initialize SPI for MCP3008
     try:
@@ -201,41 +201,44 @@ def read_all_adc():
         # Read from MCP1 (all 8 channels)
         for i in range(8):
             adc_values['mcp1'][i] = read_adc(1, i)
-        
+
         # Read from MCP2 (all 8 channels)
         for i in range(8):
             adc_values['mcp2'][i] = read_adc(2, i)
-        
+
         return adc_values
 
 def get_gpio_states():
-    """Get the current state of all GPIO pins."""
+    """Get the current state of all GPIO pins (reflecting UI logic)."""
     states = {}
-    
+
     with io_lock:
         if HARDWARE_AVAILABLE:
-            # Read actual GPIO states
-            for pin in GPIO_PINS:
-                pin_number = int(pin) if isinstance(pin, str) else pin
+            for pin_key in GPIO_PINS: # Iterate using the keys from GPIO_PINS
+                pin_number = int(pin_key)
+
                 if pin_number in PWM_PINS:
-                    # For PWM pins, get the duty cycle
+                    # PWM state is stored directly as UI-intended duty cycle
                     states[str(pin_number)] = gpio_states.get(f"pwm_{pin_number}", 0)
                 else:
-                    # For digital pins, get the state
                     try:
-                        states[str(pin_number)] = GPIO.input(pin_number) == GPIO.HIGH
-                    except:
+                        # Physical HIGH means logical "OFF" (False)
+                        # Physical LOW means logical "ON" (True)
+                        physical_state_is_high = GPIO.input(pin_number) == GPIO.HIGH
+                        states[str(pin_number)] = not physical_state_is_high
+                    except Exception as e:
+                        # Fallback to stored state on error
+                        print(f"Error reading GPIO {pin_number}: {e}. Using stored state.")
                         states[str(pin_number)] = gpio_states.get(pin_number, False)
         else:
-            # Return simulated GPIO states
-            for pin in GPIO_PINS:
-                pin_number = int(pin) if isinstance(pin, str) else pin
+            # Simulation mode: return directly from gpio_states
+            for pin_key in GPIO_PINS:
+                pin_number = int(pin_key)
                 if pin_number in PWM_PINS:
                     states[str(pin_number)] = gpio_states.get(f"pwm_{pin_number}", 0)
                 else:
                     states[str(pin_number)] = gpio_states.get(pin_number, False)
-    
-    # Format the response
+
     response = {}
     for pin, state in states.items():
         pin_number = int(pin) if isinstance(pin, str) else pin
@@ -245,31 +248,36 @@ def get_gpio_states():
             response['pwm'][str(pin_number)] = state
         else:
             response[str(pin_number)] = state
-    
+
     return response
 
+
 def set_gpio(pin, state):
-    """Set a GPIO pin to high or low."""
+    """Set a GPIO pin. UI 'state' (True=ON, False=OFF) is inverted for physical output."""
     pin = int(pin)
-    
+
     if pin not in GPIO_PINS:
         return {"success": False, "error": f"Invalid GPIO pin: {pin}"}
-    
-    # PWM pins are handled separately
+
     if pin in PWM_PINS:
         return {"success": False, "error": f"GPIO {pin} is a PWM pin. Use set_pwm instead."}
-    
+
     with io_lock:
-        gpio_states[pin] = state
-        
+        # Store the UI-intended state
+        gpio_states[pin] = state 
+
         if HARDWARE_AVAILABLE:
             try:
-                GPIO.output(pin, GPIO.HIGH if state else GPIO.LOW)
+                # Invert logic for physical output:
+                # UI "ON" (state=True) -> physical LOW
+                # UI "OFF" (state=False) -> physical HIGH
+                physical_output = GPIO.LOW if state else GPIO.HIGH
+                GPIO.output(pin, physical_output)
                 return {"success": True}
             except Exception as e:
                 return {"success": False, "error": str(e)}
         else:
-            # Simulation mode
+            # Simulation mode: just update the logical state
             return {"success": True}
 
 def set_pwm(pin, duty_cycle):
