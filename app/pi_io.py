@@ -292,6 +292,7 @@ def set_pwm(pin, duty_cycle):
         
         if HARDWARE_AVAILABLE:
             try:
+                duty_cycle = abs(duty_cycle - 100) # invert duty cycle 0->100 100->0
                 pwm_instances[pin].ChangeDutyCycle(duty_cycle)
                 return {"success": True}
             except Exception as e:
