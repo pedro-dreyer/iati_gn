@@ -3,7 +3,7 @@
 // Configuration for special ADC channel handling
 const adcChannelConfig = {
     'mcp1-ch0': {
-        type: 'percentage',
+        type: 'percentage-corrected',
         targetElementId: 'mcp1-ch0'
     },
     'mcp1-ch1': {
@@ -94,6 +94,9 @@ function updateADCValues() {
 
                     if (config.type === 'percentage') {
                         const percentage = (rawValue / 1023 * 100).toFixed(1);
+                        element.textContent = percentage;
+                    } else if (config.type === 'percentage-corrected') {
+                        const percentage = (voltage * 100 - 50).toFixed(1);
                         element.textContent = percentage;
                     } else if (config.type === 'status') {
                         const baseClass = 'channel-status';
