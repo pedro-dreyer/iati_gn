@@ -101,18 +101,14 @@ GPIO_PINS = {
     23: "ABRIR/FECHAR OCA1",
     17: "CHAVE GERAL DO MOTOGERADOR",
     27: "LIGA/DESLIGA MOTOR",
-    12: "DESLIZANTE PRÉ BOMBA (PWM)",
     22: "LIGA/DESLIGA ELETROLISADOR",
-    0: "VÁLVULA H2 ARMAZENADO",
-    5: "VÁLVULA H2 ELETROLISADO",
-    13: "LIGAR/DESLIGAR INJETOR (PWM)",
-    6: "LIGAR/DESLIGAR AQUECIMENTO OCB1",
-    19: "LIGAR/DESLIGAR AQUECIMENTO OCA1",
-    26: "LIGAR/DESLIGAR BOMBA INJETORA H2"
+    0: "BOMBA H2",
+    13: "LIGAR/DESLIGAR INJETOR",
+    12: "DESLIZANTE PRÉ BOMBA (PWM)",
 }
 
 # PWM pins
-PWM_PINS = [12, 13]
+PWM_PINS = [12]
 
 # Simulation data
 adc_values = {
@@ -144,8 +140,8 @@ def init_hardware():
     for pin in GPIO_PINS:
         if pin in PWM_PINS:
             GPIO.setup(pin, GPIO.OUT)
-            pwm_instances[pin] = GPIO.PWM(pin, 100)
-            pwm_instances[pin].start(0) # Physical 0% duty cycle
+            pwm_instances[pin] = GPIO.PWM(pin, 10)
+            pwm_instances[pin].start(0)  # Physical 0% duty cycle
         else:
             GPIO.setup(pin, GPIO.OUT)
             # For inverted logic, HIGH on pin is "OFF"
@@ -308,7 +304,7 @@ def simulate_sensor_values():
     """Simulate changing sensor values for testing."""
     import random
 
-    TEST_VALUE = 2.5
+    TEST_VALUE = 3
     TEST_VALUE = TEST_VALUE * 1023 / 3.3
     
     with io_lock:

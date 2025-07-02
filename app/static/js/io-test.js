@@ -11,8 +11,8 @@ const adcChannelConfig = {
         threshold: 2.5, // Voltage threshold for switching state
         targetElementId: 'mcp1-ch1-status',
         states: {
-            active: { text: 'Ativado', className: 'status-active' },
-            inactive: { text: 'Desativado', className: 'status-inactive' }
+            active: { text: 'Ligado', className: 'status-active' },
+            inactive: { text: 'Desligado', className: 'status-inactive' }
         }
     },
     'mcp1-ch2': {
@@ -38,8 +38,8 @@ const adcChannelConfig = {
         threshold: 2.5,
         targetElementId: 'mcp1-ch4-status',
         states: {
-            active: { text: 'Aberta', className: 'status-active' },
-            inactive: { text: 'Fechada', className: 'status-inactive' }
+            active: { text: 'Ligado', className: 'status-active' },
+            inactive: { text: 'Desligado', className: 'status-inactive' }
         }
     },
     'mcp1-ch5': {
@@ -47,8 +47,8 @@ const adcChannelConfig = {
         threshold: 2.5,
         targetElementId: 'mcp1-ch5-status',
         states: {
-            active: { text: 'Aberta', className: 'status-active' },
-            inactive: { text: 'Fechada', className: 'status-inactive' }
+            active: { text: 'Ligado', className: 'status-active' },
+            inactive: { text: 'Desligado', className: 'status-inactive' }
         }
     },
     'mcp1-ch6': {
@@ -56,18 +56,13 @@ const adcChannelConfig = {
         threshold: 2.5,
         targetElementId: 'mcp1-ch6-status',
         states: {
-            active: { text: 'Ligado', className: 'status-active' },
-            inactive: { text: 'Desligado', className: 'status-inactive' }
+            active: { text: 'Aberto', className: 'status-active' },
+            inactive: { text: 'Fechado', className: 'status-inactive' }
         }
     },
     'mcp1-ch7': {
-        type: 'status',
-        threshold: 2.5,
-        targetElementId: 'mcp1-ch7-status',
-        states: {
-            active: { text: 'Ligada', className: 'status-active' },
-            inactive: { text: 'Desligada', className: 'status-inactive' }
-        }
+        type: 'percentage',
+        targetElementId: 'mcp1-ch7'
     },
         'mcp2-ch0': {
         type: 'status',

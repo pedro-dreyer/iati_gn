@@ -31,48 +31,49 @@
                 <h3>MCP 1</h3>
                 <div class="adc-values">
                     <div class="adc-channel">
-                        <span class="channel-label">CH0 - Ciclotron  Abre/Fecha GN:</span>
+                        <span class="channel-label">CH0 - GN  Aberto/Fechado:</span>
                         <span class="channel-value" id="mcp1-ch0">0</span>
                         <span class="channel-unit">%</span>
                     </div>
                     <div class="adc-channel">
                         <span class="channel-label">CH1 - Motor :</span>
-                        <span class="channel-status status-inactive" id="mcp1-ch1-status">Desativado</span>
+                        <span class="channel-status status-inactive" id="mcp1-ch1-status">Desligado</span>
                     </div>
                     <div class="adc-channel">
-                        <span class="channel-label">CH2 - GA:</span>
+                        <span class="channel-label">CH2 - Valv Armaz. :</span>
                         <span class="channel-status status-inactive" id="mcp1-ch2-status">Fechado</span>
                     </div>
                     <div class="adc-channel">
-                        <span class="channel-label">CH3 - H2:</span>
+                        <span class="channel-label">CH3 - Valv. Eletro. :</span>
                         <span class="channel-status status-inactive" id="mcp1-ch3-status">Fechado</span>
                     </div>
                     <div class="adc-channel">
-                        <span class="channel-label">CH4 - Valv. Armaz.:</span>
-                        <span class="channel-status status-inactive" id="mcp1-ch4-status">Fechada</span>
+                        <span class="channel-label">CH4 - Eletrolisador.:</span>
+                        <span class="channel-status status-inactive" id="mcp1-ch4-status">Desligado</span>
                     </div>
                     <div class="adc-channel">
-                        <span class="channel-label">CH5 - Valv. Eletro.:</span>
-                        <span class="channel-status status-inactive" id="mcp1-ch5-status">Fechada</span>
+                        <span class="channel-label">CH5 - Bomba H2.:</span>
+                        <span class="channel-status status-inactive" id="mcp1-ch5-status">Ligada</span>
                     </div>
                     <div class="adc-channel">
-                        <span class="channel-label">CH6 - Eletrolisado:</span>
-                        <span class="channel-status status-inactive" id="mcp1-ch6-status">Desligado</span>
+                        <span class="channel-label">CH6 - Valv. Armaz. Emerg. :</span>
+                        <span class="channel-status status-inactive" id="mcp1-ch6-status">Fechada</span>
                     </div>
                     <div class="adc-channel">
-                        <span class="channel-label">CH7 - Bomba:</span>
-                        <span class="channel-status status-inactive" id="mcp1-ch7-status">Desligada</span>
+                        <span class="channel-label">CH7 - Bico Injetor:</span>
+                        <span class="channel-value" id="mcp1-ch7">0</span>
+                        <span class="channel-unit">%</span>
                     </div>
                 </div>
             </div>
             
-            <div class="adc-container">
+            <!-- <div class="adc-container">
                 <h3>MCP 2</h3>
                 <div class="adc-values">
                     <div class="adc-channel">
                         <span class="channel-label">CH0 - Bico:</span>
                         <span class="channel-status status-inactive" id="mcp2-ch0-status">Fechado</span>
-                    </div>
+                    </div> -->
                     <!-- <div class="adc-channel">
                         <span class="channel-label">CH1:</span>
                         <span class="channel-value" id="mcp2-ch1">0</span>
@@ -108,8 +109,8 @@
                         <span class="channel-value" id="mcp2-ch7">0</span>
                         <span class="channel-unit">V</span>
                     </div> -->
-                </div>
-            </div>
+                <!-- </div>
+            </div> -->
         </div>
         
         <div class="io-section">
@@ -151,10 +152,17 @@
                         </div>
                     </div>
                     <div class="gpio-control">
-                        <span class="gpio-label">GPIO 0 - LIGAR BOMBA:</span>
+                        <span class="gpio-label">GPIO 0 - LIGAR BOMBA H2:</span>
                         <div class="toggle-switch">
                             <input type="checkbox" id="gpio0" class="gpio-toggle">
                             <label for="gpio0"></label>
+                        </div>
+                    </div>
+                    <div class="gpio-control">
+                        <span class="gpio-label">GPIO 13 - ABRIR VALV. ARMZ. ERMEG. :</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="gpio13" class="gpio-toggle">
+                            <label for="gpio13"></label>
                         </div>
                     </div>
                 </div>
