@@ -12,7 +12,7 @@ def inject_header_config():
     client = os.environ.get('APP_CLIENT', 'assist').lower()
 
     logos = [
-        'images/assist.png',
+        'images/assist_stretch.png',
         'images/iati.png',
     ]  # Default for 'assist'
 
