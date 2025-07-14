@@ -9,14 +9,13 @@ main = Blueprint('main', __name__)
 @main.context_processor
 def inject_header_config():
     """Injects a list of header logos into all templates based on an environment variable."""
-    client = os.environ.get('APP_CLIENT', 'breitener').lower()
-    
+    client = os.environ.get('APP_CLIENT', 'assist').lower()
+
     logos = [
-        'images/breitener.png',
+        'images/assist.png',
         'images/iati.png',
-        'images/suape_energia.png'
-    ] # Default for 'breitener'
-    
+    ]  # Default for 'assist'
+
     if client == 'kps':
         logos = [
             'images/kps.png',

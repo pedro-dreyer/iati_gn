@@ -305,7 +305,7 @@ def simulate_sensor_values():
     """Simulate changing sensor values for testing."""
     import random
 
-    TEST_VALUE = 3
+    TEST_VALUE = 1.5
     TEST_VALUE = TEST_VALUE * 1023 / 3.3
     
     with io_lock:

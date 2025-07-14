@@ -1,6 +1,7 @@
 /* change font family to calibri */
 body {
     font-family: 'Calibri', sans-serif;
+    font-size: 18px; 
 }
 
 /* change font size of p */
